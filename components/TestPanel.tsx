@@ -44,7 +44,7 @@ export default function TestPanel({ flavor, steps, testImages, notify }: Props) 
         body: JSON.stringify({
           image_url: imageUrl,
           humor_flavor_id: flavor.id,
-          humor_flavor_steps: sorted.map(s => ({ step_number: s.step_number, instruction: s.instruction })),
+          humor_flavor_steps: sorted.map(s => ({ step_number: s.order_by, llm_system_prompt: s.llm_system_prompt })),
         }),
       });
 
@@ -97,7 +97,7 @@ export default function TestPanel({ flavor, steps, testImages, notify }: Props) 
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {sorted.map(s => (
               <div key={s.id} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                <div style={{ width: 24, height: 24, borderRadius: "50%", background: "var(--accent)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Fraunces', serif", fontSize: 12, fontWeight: 600, flexShrink: 0, marginTop: 1 }}>{s.step_number}</div>
+                <div style={{ width: 24, height: 24, borderRadius: "50%", background: "var(--accent)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Fraunces', serif", fontSize: 12, fontWeight: 600, flexShrink: 0, marginTop: 1 }}>{s.order_by}</div>
                 <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "var(--text-muted)", lineHeight: 1.5 }}>{s.instruction}</div>
               </div>
             ))}

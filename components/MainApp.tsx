@@ -19,8 +19,8 @@ export interface Flavor {
 export interface Step {
   id: string;
   humor_flavor_id: string;
-  step_number: number;
-  instruction: string;
+  order_by: number;
+  llm_system_prompt: string; llm_user_prompt: string;
   created_datetime_utc: string;
 }
 
@@ -47,7 +47,7 @@ export default function MainApp({ profile, initialFlavors, testImages }: Props) 
       .from("humor_flavor_steps")
       .select("*")
       .eq("humor_flavor_id", flavorId)
-      .order("step_number");
+      .order("order_by");
     setSteps(data ?? []);
   }, []);
 
