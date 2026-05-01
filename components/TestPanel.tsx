@@ -35,7 +35,7 @@ export default function TestPanel({ flavor, steps, testImages, notify }: Props) 
 
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "https://api.almostcrackd.ai";
-      setLog(l => [...l, `▶ Starting flavor: "${flavor.name}" with ${sorted.length} step(s)`]);
+      setLog(l => [...l, `▶ Starting flavor: "${flavor.slug}" with ${sorted.length} step(s)`]);
       setLog(l => [...l, `📷 Image: ${imageUrl}`]);
 
       const response = await fetch(`${apiUrl}/captions/generate`, {
@@ -86,7 +86,7 @@ export default function TestPanel({ flavor, steps, testImages, notify }: Props) 
         <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: "var(--accent)", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 6 }}>Test Run</div>
         <div style={{ fontFamily: "'Fraunces', serif", fontSize: 24, fontWeight: 600, color: "var(--text)", marginBottom: 4 }}>Generate Captions</div>
         <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "var(--text-muted)" }}>
-          Using flavor: <strong>{flavor.name}</strong> · {sorted.length} step(s)
+          Using flavor: <strong>{flavor.slug}</strong> · {sorted.length} step(s)
         </div>
       </div>
 
