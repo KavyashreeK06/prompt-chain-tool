@@ -12,7 +12,7 @@ export interface Flavor {
   id: string;
   name: string;
   description: string | null;
-  is_active: boolean;
+
   created_datetime_utc: string;
 }
 

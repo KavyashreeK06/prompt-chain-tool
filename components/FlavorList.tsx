@@ -22,7 +22,7 @@ export default function FlavorList({ flavors, selectedId, onSelect, onReload, no
   const create = async () => {
     if (!name.trim()) return notify("Name required", false);
     setSaving(true);
-    const { error } = await supabase.from("humor_flavors").insert({ name: name.trim(), description: desc.trim() || null, is_active: true });
+    const { error } = await supabase.from("humor_flavors").insert({ name: name.trim(), description: desc.trim() || null });
     setSaving(false);
     if (error) return notify(error.message, false);
     notify("Flavor created!");
@@ -61,7 +61,6 @@ export default function FlavorList({ flavors, selectedId, onSelect, onReload, no
           onMouseLeave={e => { if (f.id !== selectedId) e.currentTarget.style.background = "transparent"; }}>
           <div style={{ fontFamily: "'Syne', sans-serif", fontSize: 13, fontWeight: 600, lineHeight: 1.3 }}>{f.name}</div>
           {f.description && <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: "var(--text-dim)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "100%" }}>{f.description}</div>}
-          <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: f.is_active ? "var(--accent3)" : "var(--text-dim)", marginTop: 2 }}>{f.is_active ? "● active" : "○ inactive"}</div>
         </button>
       ))}
 
