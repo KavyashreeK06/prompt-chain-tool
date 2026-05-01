@@ -22,7 +22,7 @@ export default function FlavorList({ flavors, selectedId, onSelect, onReload, no
   const create = async () => {
     if (!name.trim()) return notify("Name required", false);
     setSaving(true);
-    const { error } = await supabase.from("humor_flavors").insert({ name: name.trim(), description: desc.trim() || null });
+    const { error } = await supabase.from("humor_flavors").insert({ slug: name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-"), description: desc.trim() || null });
     setSaving(false);
     if (error) return notify(error.message, false);
     notify("Flavor created!");
@@ -59,7 +59,7 @@ export default function FlavorList({ flavors, selectedId, onSelect, onReload, no
         <button key={f.id} onClick={() => onSelect(f.id)} style={{ width: "100%", padding: "12px 20px", background: selectedId === f.id ? "var(--accent-light)" : "transparent", borderLeft: selectedId === f.id ? "3px solid var(--accent)" : "3px solid transparent", color: selectedId === f.id ? "var(--accent)" : "var(--text)", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2, transition: "all 0.12s", textAlign: "left" }}
           onMouseEnter={e => { if (f.id !== selectedId) e.currentTarget.style.background = "var(--surface2)"; }}
           onMouseLeave={e => { if (f.id !== selectedId) e.currentTarget.style.background = "transparent"; }}>
-          <div style={{ fontFamily: "'Syne', sans-serif", fontSize: 13, fontWeight: 600, lineHeight: 1.3 }}>{f.name}</div>
+          <div style={{ fontFamily: "'Syne', sans-serif", fontSize: 13, fontWeight: 600, lineHeight: 1.3 }}>{f.slug}</div>
           {f.description && <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: "var(--text-dim)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "100%" }}>{f.description}</div>}
         </button>
       ))}

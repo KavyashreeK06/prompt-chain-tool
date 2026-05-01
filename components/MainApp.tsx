@@ -10,7 +10,7 @@ const supabase = createClient();
 
 export interface Flavor {
   id: string;
-  name: string;
+  slug: string;
   description: string | null;
 
   created_datetime_utc: string;

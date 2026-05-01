@@ -15,7 +15,7 @@ interface Props {
 
 export default function FlavorEditor({ flavor, steps, onReloadSteps, onReloadFlavors, notify }: Props) {
   const [editingFlavor, setEditingFlavor] = useState(false);
-  const [flavorName, setFlavorName] = useState(flavor.name);
+  const [flavorName, setFlavorName] = useState(flavor.slug);
   const [flavorDesc, setFlavorDesc] = useState(flavor.description ?? "");
   const [showDeleteFlavor, setShowDeleteFlavor] = useState(false);
   const [editingStepId, setEditingStepId] = useState<string | null>(null);
@@ -32,7 +32,7 @@ export default function FlavorEditor({ flavor, steps, onReloadSteps, onReloadFla
 
   const saveFlavor = async () => {
     setSaving(true);
-    const { error } = await supabase.from("humor_flavors").update({ name: flavorName.trim(), description: flavorDesc.trim() || null }).eq("id", flavor.id);
+    const { error } = await supabase.from("humor_flavors").update({ slug: flavorName.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-"), description: flavorDesc.trim() || null }).eq("id", flavor.id);
     setSaving(false);
     if (error) return notify(error.message, false);
     notify("Flavor updated!"); setEditingFlavor(false); onReloadFlavors();
@@ -121,11 +121,11 @@ export default function FlavorEditor({ flavor, steps, onReloadSteps, onReloadFla
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
             <div>
               <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: "var(--accent)", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 6 }}>Flavor Settings</div>
-              <div style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: "var(--text)" }}>{flavor.name}</div>
+              <div style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: "var(--text)" }}>{flavor.slug}</div>
               {flavor.description && <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "var(--text-muted)", marginTop: 4 }}>{flavor.description}</div>}
             </div>
             <div style={{ display: "flex", gap: 8 }}>
-              <button onClick={() => { setFlavorName(flavor.name); setFlavorDesc(flavor.description ?? ""); setEditingFlavor(true); }} style={btnS}>Edit</button>
+              <button onClick={() => { setFlavorName(flavor.slug); setFlavorDesc(flavor.description ?? ""); setEditingFlavor(true); }} style={btnS}>Edit</button>
               <button onClick={() => setShowDeleteFlavor(true)} style={{ ...btnS, borderColor: "#fca5a5", color: "#dc2626" }}>Delete</button>
             </div>
           </div>
