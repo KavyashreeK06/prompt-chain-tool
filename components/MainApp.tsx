@@ -124,7 +124,7 @@ export default function MainApp({ profile, initialFlavors, testImages }: Props) 
             {/* Top bar */}
             <div style={{ background: "var(--surface)", borderBottom: "1.5px solid var(--border)", padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 50 }}>
               <div>
-                <div style={{ fontFamily: "'Fraunces', serif", fontSize: 24, fontWeight: 600, color: "var(--text)" }}>{selectedFlavor.name}</div>
+                <div style={{ fontFamily: "'Fraunces', serif", fontSize: 24, fontWeight: 600, color: "var(--text)" }}>{selectedFlavor.slug}</div>
                 {selectedFlavor.description && <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: "var(--text-muted)", marginTop: 2 }}>{selectedFlavor.description}</div>}
               </div>
               <div style={{ display: "flex", gap: 8 }}>
