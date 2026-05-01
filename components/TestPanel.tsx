@@ -22,7 +22,7 @@ export default function TestPanel({ flavor, steps, testImages, notify }: Props) 
   const [log, setLog] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const sorted = [...steps].sort((a, b) => a.step_number - b.step_number);
+  const sorted = [...steps].sort((a, b) => a.order_by - b.order_by);
   const selectedImage = testImages.find(i => i.id === selectedImageId);
   const imageUrl = useCustom ? customUrl : selectedImage?.url ?? "";
 
